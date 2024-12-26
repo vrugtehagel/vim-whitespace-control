@@ -1,0 +1,35 @@
+*vim-whitespace-control.txt* Simple whitespace control for VIM
+
+====================================================================
+CONTENTS                              *VimWhitespaceControlContents*
+
+    1. Usage .......... |VimWhitespaceControlUsage|
+    2. License ........ |VimWhitespaceControlLicense|
+    3. Bugs ........... |VimWhitespaceControlBugs|
+
+====================================================================
+1. Usage                                 *VimWhitespaceControlUsage*
+                                      
+The VIM Whitespace control plugin is an extremely simple and
+lightweight solution for automatic whitespace detection. It looks
+for the first indented bit of code, and uses that as indentation. It
+does so when you open a file and when you save one. It only sets
+the `tabstop` and `expandtab` options.
+
+Additionally, the plugin removes trailing whitespace after saving.
+
+This plugin is passive. It has no options.
+
+====================================================================
+2. License                             *VimWhitespaceControlLicense*
+
+The "VIM Whitespace control" plugin is MIT licensed.
+
+====================================================================
+3. Bugs                                   *VimWhitespaceControlBugs*
+
+For any bug reports or other forms of communication regarding this
+plugin, please file an issue at
+<https://github.com/vrugtehagel/vim-whitespace-control>
+
+====================================================================
