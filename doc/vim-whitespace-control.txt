@@ -9,14 +9,16 @@ CONTENTS                              *VimWhitespaceControlContents*
 
 ====================================================================
 1. Usage                                 *VimWhitespaceControlUsage*
-                                      
+
 The VIM Whitespace control plugin is an extremely simple and
 lightweight solution for automatic whitespace detection. It looks
 for the first indented bit of code, and uses that as indentation. It
 does so when you open a file and when you save one. It only sets
 the `tabstop` and `expandtab` options.
 
-Additionally, the plugin removes trailing whitespace after saving.
+Additionally, the plugin removes trailing whitespace after saving,
+and cleans up indentation to be consistent (still using the first
+indent as reference).
 
 This plugin is passive. It has no options.
 

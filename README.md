@@ -8,7 +8,32 @@ for the first indented bit of code, and uses that as indentation. It
 does so when you open a file and when you save one. It only sets
 the `tabstop` and `expandtab` options.
 
-Additionally, the plugin removes trailing whitespace after saving.
+Additionally, the plugin removes trailing whitespace after saving, and cleans
+up the indentation according to the detected type. Let's look at an example,
+and to make things clear let's denote a space as `.` and a tab as `--->` (the
+tabstop being 4).
+
+```
+export.function.fibonacci(index:.number):.number.{
+--->if.(index.<=.1).{-->
+--->....return.index;..
+..->}.->..
+....return.fibonacci(index.-.1).+.fibonacci(index.-.2);
+}
+```
+
+This is a bit of a mess regarding whitespace. After saving, the plugin first
+detects the indentation and assumes the desired indentation to be a tab, since
+the first indented line uses one. Then, after processing, the file looks like
+
+```
+export.function.fibonacci(index:.number):.number.{
+--->if.(index.<=.1).{
+--->--->return index;
+--->}
+--->return.fibonacci(index.-.1).+.fibonacci(index.-.2);
+}
+```
 
 ## Installation
 
