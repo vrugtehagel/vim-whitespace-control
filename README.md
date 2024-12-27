@@ -29,7 +29,7 @@ the first indented line uses one. Then, after processing, the file looks like
 ```
 export.function.fibonacci(index:.number):.number.{
 --->if.(index.<=.1).{
---->--->return index;
+--->--->return.index;
 --->}
 --->return.fibonacci(index.-.1).+.fibonacci(index.-.2);
 }
