@@ -1,7 +1,7 @@
 vim9script
 
-def AutoSettings(): void
-	if !!&l:buftype | return | endif
+def SyncIndentStyle(): list<any> # [use_tabs: bool, tabstop: number]
+	if !!&l:buftype | return [] | endif
 	const max_line = min([line('$'), 256])
 	var line_index = 0
 	var indent = ''
@@ -11,27 +11,39 @@ def AutoSettings(): void
 		indent = matchstr(line, '.*\S\&^\s\+')
 	endwhile
 	const use_tabs = indent[0] != ' '
+	const tabstop = use_tabs ? &g:tabstop : strlen(indent)
 	&l:expandtab = !use_tabs
-	&l:tabstop = use_tabs ? &g:tabstop : strlen(indent)
+	&l:tabstop = tabstop
+	return [use_tabs, tabstop]
 enddef
 
 def FixWhitespace(): void
-	if !!&l:buftype | return | endif
+	const settings = SyncIndentStyle()
+	if !settings | return | endif
+	const [use_tabs, tabstop] = settings
+	const space_indent = repeat(' ', tabstop)
+	const indent = use_tabs ? '\t' : space_indent
 	const view = winsaveview()
 	silent execute ':%s/\s\+$//e'
-	edit! %:p
+	silent execute ':%s/'
+		.. '\(\t\|' .. space_indent .. '\)'
+		.. '\(^\s*\)\@<='
+		.. '/' .. indent .. '/ge'
+	if use_tabs
+		silent execute ':%s/ \(^\s*\)\@<=//ge'
+	endif
 	winrestview(view)
 enddef
 
 silent! autocmd_delete([{ group: 'VimWhitespaceControl' }])
 autocmd_add([{
 	group: 'VimWhitespaceControl',
-	event: ['BufWritePost', 'BufRead'],
+	event: 'BufRead',
 	pattern: '*',
-	cmd: 'AutoSettings()',
+	cmd: 'SyncIndentStyle()',
 }, {
 	group: 'VimWhitespaceControl',
-	event: ['BufWritePost'],
+	event: 'BufWrite',
 	pattern: '*',
 	cmd: 'FixWhitespace()',
 }])
