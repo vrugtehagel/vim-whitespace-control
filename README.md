@@ -14,6 +14,9 @@ and to make things clear let's denote a space as `.` and a tab as `--->` (the
 tabstop being 4).
 
 ```
+/**
+.*.This.function.finds.fibonacci.numbers.
+.*/
 export.function.fibonacci(index:.number):.number.{
 --->if.(index.<=.1).{-->
 --->....return.index;..
@@ -27,6 +30,9 @@ detects the indentation and assumes the desired indentation to be a tab, since
 the first indented line uses one. Then, after processing, the file looks like
 
 ```
+/**
+.*.This.function.finds.fibonacci.numbers.
+.*/
 export.function.fibonacci(index:.number):.number.{
 --->if.(index.<=.1).{
 --->--->return.index;
@@ -34,6 +40,11 @@ export.function.fibonacci(index:.number):.number.{
 --->return.fibonacci(index.-.1).+.fibonacci(index.-.2);
 }
 ```
+
+Note that it preseves the indentation in the JSDoc comment. Single-space indents
+are disallowed, so the file is still detected as tab-indented. Within tab-based
+indentation, trailing spaces are not removed (to avoid visual differences). In
+general, the file should look the same after saving.
 
 ## Installation
 
