@@ -8,7 +8,7 @@ def SyncIndentStyle(): list<any> # [use_tabs: bool, tabstop: number]
 	while !indent && line_index <= max_line
 		line_index += 1
 		const line = getline(line_index)
-		indent = matchstr(line, '.*\S\&^\s\+')
+		indent = matchstr(line, '.*\S\&^(  \|\t)\+')
 	endwhile
 	const use_tabs = indent[0] != ' '
 	const tabstop = use_tabs ? &g:tabstop : strlen(indent)
