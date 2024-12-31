@@ -30,7 +30,7 @@ def FixWhitespace(): void
 		.. '\(^\s*\)\@<='
 		.. '/' .. indent .. '/ge'
 	if use_tabs
-		silent execute ':%s/ \(^\s*\)\@<=//ge'
+		silent execute ':%s/ \(^\s*\)\@<=\(\s\)\@=//ge'
 	endif
 	winrestview(view)
 enddef
